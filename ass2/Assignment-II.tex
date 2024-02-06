@@ -1,0 +1,229 @@
+\documentclass[solution,addpoints,12pt]{exam}
+\printanswers
+\usepackage{amsmath,amssymb,graphicx}
+\usepackage{centernot}
+\usepackage{hyperref}
+\newcommand{\RP}{\ensuremath{\mathsf{RP}}}
+\newcommand{\expect}[1]{\ensuremath{\mathbb{E}[#1]}}
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\real}{\mathbb{R}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+%\documentclass[addpoints,11pt,a4paper]{exam}
+\renewcommand{\rmdefault}{ppl} % rm
+\linespread{1.05}        % Palatino needs more leading
+\usepackage[scaled]{helvet} % ss
+\usepackage{courier} % tt
+\usepackage{eulervm} % a better implementation of the euler package (not in gwTeX)
+\normalfont
+\usepackage{caption}
+\usepackage[T1]{fontenc}
+\usepackage{mathrsfs}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{paralist}
+\usepackage{amsmath}
+\usepackage{psfrag}
+\usepackage{fullpage}
+\usepackage{fancybox}
+\usepackage{ifthen}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{bbm}
+\usepackage{listings}             % Include the listings-package
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
+\lstset{language=Python}
+\usepackage{marvosym}
+\usepackage[export]{adjustbox}
+\extrawidth{1in}
+\usepackage{multicol}
+\setlength{\columnsep}{.001cm}
+\newcommand{\twopartdef}[4]
+{
+	\left\{
+		\begin{array}{ll}
+			#1 & \mbox{if } #2 \\
+			#3 & \mbox{if } #4
+		\end{array}
+	\right.
+}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\fH}{\mathcal{H}}
+\newcommand{\M}{\mathcal{M}}
+
+\begin{document}
+
+\hrule
+\vspace{3mm}
+\noindent 
+{\sf IITM-CS5691 : Pattern Recognition and Machine Learning  \hfill Release Date: October 9, 2023}
+\\
+\noindent 
+{\sf Assignment II \hfill Due Date : October 23, 2023, 23:59}
+%{\sf ~\hfill }
+\vspace{3mm}
+\hrule
+\vspace{3mm}
+\noindent{{\sf Roll No:}  \hfill  {\sf Name: Bayes Fisher}}% put your ROLL NO AND NAME HERE
+
+\noindent
+{{\sf Collaborators (if any): }} %Names of the collaborators (if any).
+
+\noindent
+{{\sf References/sources (if any): 
+}} %Reference/source materials, if any.
+
+
+\vspace{3mm}
+\hrule
+{\small
+\begin{itemize}
+\item Use \LaTeX\ to write-up your solutions (in the solution blocks of the source \LaTeX\ file of this assignment), submit the resulting rollno.asst2.answers.pdf file at Crowdmark by the due date, and propery drag that pdf's answer pages to the corresponding question in Crowdmark (do this propery, otherwise we won't be able to grade!). (Note: {\bf No late submissions} will be allowed, other than one-day late submission with 10\% penalty or four-day late submission with 30\% penalty.)% Instructions to join Crowdmark and submit your solution to each question wthin Crowdmark \textbf{TBA} later).
+\item Please upload to moodle a rollno.zip file containing three files:  rollno.asst2.answers.pdf file mentioned above, and  two code files for the programming question (rollno.ipynb file and rollno.py file). Do not forget to upload to Crowdmark your results/answers (including Jupyter notebook {\bf with output}) for the programming question.
+\item Collaboration is encouraged, but all write-ups must be done individually and independently, and mention your collaborator(s) if any. Same rules apply for codes written for any programming assignments (i.e., write your own code; we will run plagiarism checks on codes).
+\item  If you have referred a book or any other online material or LLMs (Large Language Models like ChatGPT) for obtaining a solution, please cite the source. Again don't copy the source {\it as is} - you may use the source to understand the solution, but write-up the solution in your own words (this also means that you cannot copy-paste the solution from LLMs!). Please be advised that {\it the lesser your reliance on online materials or LLMs} for answering the questions, {\it the more your understanding} of the concepts will be and {\it the more prepared you will be for the course exams}.  
+\item Points will be awarded based on how clear, concise and rigorous your solutions are, and how correct your answer is. The weightage of this assignment is 12\% towards the overall course grade. 
+\end{itemize}
+}
+\hrule
+
+
+\begin{questions} 
+\question[8] [{\sc Spectral Clustering - Laplacian Eigenmap}] Consider a simple undirected graph $G=(V,E)$ with $|V|=n$ nodes and $|E|=m$ edges. Let $A$ be the binary adjacency matrix of the graph (i.e., the symmetric 0-1 matrix where 1 indicates the presence of the corresponding edge; diagonal entries of $A$ are zero). Let $x \in \mathbb{R} ^n$ denote the node scores. 
+
+Let the graph Laplacian matrix be $L=D-A$ seen in class, with $D$ being the diagonal matrix of node degrees. Let $\lambda_1 \le \lambda_2 \le \ldots \le \lambda_n$ denote the eigen values of the graph Laplacian $L$ (sometimes also referred to as $L_G$ to explicitly mention the graph). 
+
+\begin{parts}
+\part[2] Show that $x^T L x$ = $\sum_{(i, j) \in E}(x_i - x_j)^2$, and hence argue very briefly why $\lambda_i \ge 0$ for $i =1,2,\ldots,n$?
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[1] If $G$ has $3$ connected components, what is the multiplicity of the eigen value $0$ of $L_G$, and what are the corresponding eigen vectors? 
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[2] Let's add one edge to $G$ to obtain a new graph $G'$. What can you say about the multiplicity of eigen value $0$ of $L_{G'}$ relative to that of $L_G$? Will the sum of eigen values of $L_{G'}$ change compared to that of $L_G$; and if so, by what amount? 
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[3] If $G$ is a complete graph on $n$ nodes, we know that the multiplicity of eigen value $0$ of $L_G$ is $1$; prove in this case that the multiplicity of eigen value $n$ of $L_G$ is $n-1$.\\ 
+(Hint: Let $v$ be an eigen vector of $L_G$ orthogonal to the (all-ones) eigen vector of $L$ corresp. to eigen value 0. Assume, without loss of generality, that $v(1) \ne 0$. Now compute the first coordinate of $L_G v$, and then divide by $v(1)$ to compute eigen value $\lambda$.)
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+\end{parts}
+
+
+\question[8] [{\sc Principal Component Analysis - Numerical}]
+Consider the following dataset $D$ of 8 datapoints: \\
+ \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    data \# & x     & y     \\ \hline
+    1    & 5.51  & 5.35  \\ \hline
+    2    & 20.82 & 24.03 \\ \hline
+    3    & -0.77 & -0.57 \\ \hline
+    4    & 19.30 & 19.38 \\ \hline
+    5    & 14.24 & 12.77 \\ \hline
+    6    & 9.74  & 9.68  \\ \hline
+    7    & 11.59 & 12.06 \\ \hline
+    8    & -6.08 & -5.22 \\ \hline
+    \end{tabular}
+    \label{tab:data}
+    \end{table}
+
+    You need to reduce the data into a single-dimension representation. You are given the first principal component: $PC1 = (-0.694, -0.720)$.
+    
+\begin{parts}
+\part[2] What is the $xy$ coordinate for the datapoint reconstructed (approximated) from data \#2 (x=20.82, y=24.03) using the first principal component of $D$? What is the reconstruction error of this $PC1$-based approximation of data \#2? 
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[2] What is the second principal component of the dataset $D$?  How will you represent data \#2 as a linear combination of the two principal components? What is the reconstruction error of this $(PC1,PC2)$-based representation of data \#2?
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[2] Let $D'$ be the mean-subtracted version of $D$. What will be the first and second principal components $PC1$ and $PC2$ of $D'$? What is the $xy$ coordinate of data \#2 and its $PC1$-based reconstruction in $D'$? What is the associated reconstruction/approximation error of data \#2?
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[2] Let $D''$ be a dataset extended from $D$ by adding a third feature $z$ to each datapoint. It so happens that this third feature is a constant value ($3.5$) across all $8$ datapoints. Then, what  will be the three principal components of $D''$, and what is the $xyz$ coordinate of the $PC1$-based reconstruction of data \#2 in $D''$ and the associated reconstruction error? 
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+\end{parts}
+
+
+\question[8] [{\sc Linear Regression}]
+    \begin{parts}
+        \part[4] The error function in the case of ridge regression is given by:
+            \[ \tilde{E}(w) =  \frac{1}{2}\sum_{n=1}^{N} (t_n - w^T \phi(x_n))^2 + \frac{\lambda}{2} w^Tw\]
+
+            Show that this error function is convex and is minimized by:
+                    \[ w^* = (\lambda I + \phi^T \phi)^{-1} \phi^Tt\]
+
+            Also show that $(\lambda I + \phi^T \phi)$ is invertible for any $\lambda > 0$.
+
+            {\small 
+            (Note 1: To simplify and keep your solution concise, use  vector/matrix format (e.g., gradient, Hessian, etc.,) for your expressions. \\
+            Note 2: Here, the target vector $t \in \mathbb{R}^N$ and the matrix $\phi \in \mathbb{R}^{N \times d'}$ represents all the $N$ input datapoints after transformation by the  feature-mapping function $\phi(.):~ \mathbb{R}^d \rightarrow \mathbb{R}^{d'}$. For example, the $\phi(.)$ for performing $k$-degree polynomial regression on a $d$-dimensional input for $k = 2, d = 2$ is given by $\phi([x_1, x_2]) = [1, x_1, x_2, x_1^2, x_2^2, x_1 x_2]$.)}
+            %\newpage
+            %\begin{solution}
+            %\end{solution}
+            %\newpage
+            
+        \part[4] Given a dataset 
+                \[ X = \begin{bmatrix} -2 & 4 \\ -1 & 2 \end{bmatrix}   t = \begin{bmatrix} 3 & -1 \end{bmatrix} \]
+                find all minimizers of $w$ of $E(w) = \frac{1}{2} || Xw-t||^2$, and indicate the one with the smallest norm. How does your answer change if you are looking for minimizers of $ \tilde{E}(w)$ instead (assuming $\lambda$ = 1)?
+                %\newpage
+                %\begin{solution}
+                %\end{solution}
+                %\newpage
+    \end{parts}
+
+
+\question[8] [{\sc Life in lower dimensions...}]
+You are provided with a dataset of 1797 images in \href{https://drive.google.com/drive/folders/1emTvy-U4ZBnefQBddwTWP49oGQm8V2Gs?usp=sharing}{a folder here} - each image is 8x8 pixels and provided as a feature vector of length 64. You will try your hands at transforming this dataset to a lower-dimensional space, and clustering the images in this reduced space. 
+
+Please use the template.ipynb file in the \href{https://drive.google.com/drive/folders/1emTvy-U4ZBnefQBddwTWP49oGQm8V2Gs?usp=sharing}{same folder} to prepare your solution. Provide your results/answers in the pdf file you upload to Crowdmark, and submit your code separately in \href{https://coursesnew.iitm.ac.in/mod/assign/view.php?id=26503}{this} moodle link. The code submitted should be a rollno.zip file containing two files: rollno.ipynb file (including your code as well as the exact same results/plots uploaded to Crowdmark) and the associated rollno.py file.
+
+\red{Write the code from scratch for both PCA and clustering. The only exception is the computation of eigenvalues and eigenvectors for which you could use the numpy in-bulit function.}
+
+\begin{parts}
+\part[4] Run the PCA algorithm on the given dataset. Plot the cumulative percentage variance explained by the principal components. Report the number of principal components that contribute to 90\% of the variance in the dataset.
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+
+\part[4] Perform reconstruction of data using the small number of components: [2,4,8,16]. Report the Mean Square Error (MSE) between the original data and reconstructed data, and interpret the optimal dimension $\widehat{d}$ based on the MSE values.
+%\newpage
+%\begin{solution}
+%\end{solution}
+%\newpage
+\end{parts}
+\end{questions}
+\end{document}
